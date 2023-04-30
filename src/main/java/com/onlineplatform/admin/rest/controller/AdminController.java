@@ -13,6 +13,7 @@ public class AdminController {
 	
 	@GetMapping("/getMsg")
 	public ResponseEntity<String> showMessage() {
+		System.out.println("call is coming to showMessage().");
 		return new ResponseEntity<String>("Hi this is response from admin Controller.", HttpStatus.OK);
 	}
 
