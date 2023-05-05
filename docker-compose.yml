@@ -11,8 +11,6 @@ services:
       - "9191:9191"
     depends_on:
       - mysqldb
-
-
   mysqldb:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
