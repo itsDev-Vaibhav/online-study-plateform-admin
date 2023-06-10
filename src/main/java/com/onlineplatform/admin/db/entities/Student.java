@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Students {
+public class Student {
 	
 	
 	private Long studentId;
@@ -29,18 +29,18 @@ public class Students {
 	private LocalDate updatedDate;
 
 	
-	private Set<Courses> courses = new HashSet<>();
+	private Set<Course> courses = new HashSet<>();
 	
 	
-	private Users user;
+	private User user;
 	
 	
 
-	public Students() {
+	public Student() {
 	}
 
-	public Students(String firstName, String lastName, String level, Boolean isActive, String createdBy,
-			LocalDate createdDate, String updatedBy, LocalDate updatedDate, Users user) {
+	public Student(String firstName, String lastName, String level, Boolean isActive, String createdBy,
+			LocalDate createdDate, String updatedBy, LocalDate updatedDate, User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.level = level;
@@ -67,7 +67,7 @@ public class Students {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Students other = (Students) obj;
+		Student other = (Student) obj;
 		return Objects.equals(createdBy, other.createdBy) && Objects.equals(createdDate, other.createdDate)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(isActive, other.isActive)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(level, other.level)
@@ -166,22 +166,22 @@ public class Students {
 	}
 
 
-	public Set<Courses> getCourses() {
+	public Set<Course> getCourses() {
 		return courses;
 	}
 
 
-	public void setCourses(Set<Courses> courses) {
+	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
 
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

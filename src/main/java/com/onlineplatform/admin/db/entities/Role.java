@@ -4,18 +4,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Roles {
+public class Role {
 
 	private Long roleId;
 	private String roleName;
 
-	private Set<Users> users = new HashSet<>();
+	private Set<User> users = new HashSet<>();
 
-	public Roles() {
+	public Role() {
 
 	}
 
-	public Roles(String roleName) {
+	public Role(String roleName) {
 		this.roleName = roleName;
 	}
 
@@ -35,11 +35,11 @@ public class Roles {
 		this.roleName = roleName;
 	}
 
-	public Set<Users> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<Users> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 
@@ -56,7 +56,7 @@ public class Roles {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Roles other = (Roles) obj;
+		Role other = (Role) obj;
 		return Objects.equals(roleId, other.roleId) && Objects.equals(roleName, other.roleName);
 	}
 

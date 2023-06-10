@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Courses {
+public class Course {
 	
 	private Long courseId;
 	private String courseName;
@@ -30,18 +30,18 @@ public class Courses {
 	
 	private Instructor instructor;
 	
-	private Set<Students> students = new HashSet<>();
+	private Set<Student> students = new HashSet<>();
 	
 	
-	public void assignStudentToCourse(Students s) {
+	public void assignStudentToCourse(Student s) {
 		this.students.add(s);
 	}
 	
-	public Courses() {
+	public Course() {
 
 	}
 	
-	public Courses(String courseName, String courseDuration, String courseDescription, Boolean isDeleted,
+	public Course(String courseName, String courseDuration, String courseDescription, Boolean isDeleted,
 			String createdBy, LocalDate createdDate, String updatedBy, LocalDate updatedDate, Instructor instructor) {
 		super();
 		this.courseName = courseName;
@@ -70,7 +70,7 @@ public class Courses {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Courses other = (Courses) obj;
+		Course other = (Course) obj;
 		return Objects.equals(courseDescription, other.courseDescription)
 				&& Objects.equals(courseDuration, other.courseDuration) && Objects.equals(courseId, other.courseId)
 				&& Objects.equals(courseName, other.courseName) && Objects.equals(createdBy, other.createdBy)
@@ -179,12 +179,12 @@ public class Courses {
 	}
 
 
-	public Set<Students> getStudents() {
+	public Set<Student> getStudents() {
 		return students;
 	}
 
 
-	public void setStudents(Set<Students> students) {
+	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 

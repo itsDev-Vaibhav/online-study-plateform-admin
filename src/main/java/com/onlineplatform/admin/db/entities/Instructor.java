@@ -29,23 +29,23 @@ public class Instructor {
 	private LocalDate updatedDate;
 	
 	
-	private Set<Courses> courses = new HashSet<>();
+	private Set<Course> courses = new HashSet<>();
 	
-	private Users user;
+	private User user;
 	
 	
 	public Instructor() {
 	}
 	
 	
-	public void setCoursesToInstructor(Courses c) {
+	public void setCoursesToInstructor(Course c) {
 		this.courses.add(c);
 	}
 	
 
 
 	public Instructor(String firstName, String lastName, String summery, Boolean isDeleted, String createdBy,
-			LocalDate createdDate, String updatedBy, LocalDate updatedDate, Users user) {
+			LocalDate createdDate, String updatedBy, LocalDate updatedDate, User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.summery = summery;
@@ -147,22 +147,22 @@ public class Instructor {
 	}
 
 
-	public Set<Courses> getCourses() {
+	public Set<Course> getCourses() {
 		return courses;
 	}
 
 
-	public void setCourses(Set<Courses> courses) {
+	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
 
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

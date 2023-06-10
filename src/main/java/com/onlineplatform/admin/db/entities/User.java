@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Users {
+public class User {
 	
 	
 	private Long userId;
 	private String email;
 	private String password;
 	
-	private Set<Roles> roles = new HashSet<>();
+	private Set<Role> roles = new HashSet<>();
 	
-	private Students student;
+	private Student student;
 	
 	private Instructor instructor;
 	
@@ -22,13 +22,13 @@ public class Users {
 	
 	
 	
-	public Users() {
+	public User() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
 
-	public Users(String email, String password) {
+	public User(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -60,19 +60,19 @@ public class Users {
 		this.password = password;
 	}
 
-	public Set<Roles> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Roles> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
-	public Students getStudent() {
+	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(Students student) {
+	public void setStudent(Student student) {
 		this.student = student;
 	}
 
@@ -97,7 +97,7 @@ public class Users {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Users other = (Users) obj;
+		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(password, other.password)
 				&& Objects.equals(userId, other.userId);
 	}
