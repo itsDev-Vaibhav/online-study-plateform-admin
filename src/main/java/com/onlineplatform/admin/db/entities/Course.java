@@ -5,53 +5,107 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+@Entity
+@Table(name = "courses")
 public class Course {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "course_id", nullable = false)
 	private Long courseId;
+	
+	@Basic
+	@Column(name = "course_name", nullable = false, length = 45)
 	private String courseName;
+	
+	@Basic
+	@Column(name = "course_duration", nullable = false, length = 45)
 	private String courseDuration;
+	
+
+	@Basic
+	@Column(name = "course_description", nullable = false, length = 64)
 	private String courseDescription;
+	
+	@Basic
+	@Column(nullable = false)
 	private Boolean isDeleted;
 	
-//	@Column(name = "CREATED_BY")
+	@Column(name = "CREATED_BY")
 	private String createdBy;
 	
-//	@Column(name = "CREATED_DT", updatable = false)
-//	@CreationTimestamp
+	@Column(name = "CREATED_DT", updatable = false)
+	@CreationTimestamp
 	private LocalDate createdDate; 
 	
-//	@Column(name = "UPDATED_BY")
+	@Column(name = "UPDATED_BY")
 	private String updatedBy;
 	
 	
-//	@Column(name = "UPDATED_DT", insertable = false)
-//	@UpdateTimestamp
+	@Column(name = "UPDATED_DT", insertable = false)
+	@UpdateTimestamp
 	private LocalDate updatedDate;
 	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor_id", referencedColumnName = "instructor_id", nullable = false)
 	private Instructor instructor;
 	
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "enrolled_in", joinColumns = {@JoinColumn(name = "course_id")},
+	inverseJoinColumns = {@JoinColumn(name = "student_id")})
 	private Set<Student> students = new HashSet<>();
 	
 	
 	public void assignStudentToCourse(Student s) {
 		this.students.add(s);
+		s.getCourses().add(this);
+	}
+	
+	public void removeStudentFromCourse(Student s) {
+		this.students.remove(s);
+		s.getCourses().remove(this);
 	}
 	
 	public Course() {
 
 	}
 	
+	public Course(String courseName, String courseDuration, String courseDescription, Instructor instructor) {
+		this.courseName = courseName;
+		this.courseDuration = courseDuration;
+		this.courseDescription = courseDescription;
+		this.isDeleted = false;
+		this.createdBy = "System";
+		this.updatedBy = "System";
+		this.instructor = instructor;
+	}
+	
 	public Course(String courseName, String courseDuration, String courseDescription, Boolean isDeleted,
-			String createdBy, LocalDate createdDate, String updatedBy, LocalDate updatedDate, Instructor instructor) {
-		super();
+			String createdBy, String updatedBy, Instructor instructor) {
 		this.courseName = courseName;
 		this.courseDuration = courseDuration;
 		this.courseDescription = courseDescription;
 		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
-		this.createdDate = createdDate;
 		this.updatedBy = updatedBy;
-		this.updatedDate = updatedDate;
 		this.instructor = instructor;
 	}
 

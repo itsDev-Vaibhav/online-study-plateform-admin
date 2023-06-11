@@ -4,11 +4,32 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "roles")
 public class Role {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id", nullable = false)
 	private Long roleId;
+	
+	
+	@Basic
+	@Column(name = "role_name", nullable = false, length = 20, unique = true)
 	private String roleName;
 
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<>();
 
 	public Role() {

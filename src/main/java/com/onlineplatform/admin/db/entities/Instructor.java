@@ -5,32 +5,71 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+
+@Entity
+@Table(name = "instructors")
 public class Instructor {
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "instructor_id", nullable = false)
 	private Long instructorId;
+	
+	@Basic
+	@Column(name = "first_name", nullable = false, length = 45)
 	private String firstName;
+	
+	@Basic
+	@Column(name = "last_name", nullable = false, length = 45)
 	private String lastName;
+	
+	@Basic
+	@Column(name = "summery", nullable = false, length = 64)
 	private String summery;
+	
+	
+	@Basic
+	@Column(nullable = false)
 	private Boolean isDeleted;
-//	@Column(name = "CREATED_BY")
+	
+	
+	@Column(name = "CREATED_BY")
 	private String createdBy;
 	
-//	@Column(name = "CREATED_DT", updatable = false)
-//	@CreationTimestamp
+	@Column(name = "CREATED_DT", updatable = false)
+	@CreationTimestamp
 	private LocalDate createdDate; 
 	
-//	@Column(name = "UPDATED_BY")
+	@Column(name = "UPDATED_BY")
 	private String updatedBy;
 	
 	
-//	@Column(name = "UPDATED_DT", insertable = false)
-//	@UpdateTimestamp
+	@Column(name = "UPDATED_DT", insertable = false)
+	@UpdateTimestamp
 	private LocalDate updatedDate;
 	
-	
+	@OneToMany(mappedBy =  "instructor", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 	
+	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
 	private User user;
 	
 	
@@ -44,16 +83,13 @@ public class Instructor {
 	
 
 
-	public Instructor(String firstName, String lastName, String summery, Boolean isDeleted, String createdBy,
-			LocalDate createdDate, String updatedBy, LocalDate updatedDate, User user) {
+	public Instructor(String firstName, String lastName, String summery, User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.summery = summery;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.updatedBy = updatedBy;
-		this.updatedDate = updatedDate;
+		this.isDeleted = false;
+		this.createdBy = "System";
+		this.updatedBy = "System";
 		this.user = user;
 	}
 

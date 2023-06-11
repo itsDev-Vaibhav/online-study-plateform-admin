@@ -5,33 +5,68 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+
+@Entity
+@Table(name = "students")
 public class Student {
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "student_id", nullable =  false)
 	private Long studentId;
+	
+	@Basic
+	@Column(name = "first_name", nullable =  false, length = 45)
 	private String firstName;
+	
+	@Basic
+	@Column(name = "last_name", nullable =  false, length = 45)
 	private String lastName;
+	
+	@Basic
+	@Column(name = "level", nullable =  false, length = 64)
 	private String level;
-	private Boolean isActive;
-//	@Column(name = "CREATED_BY")
+	
+	@Basic
+	@Column(nullable = false)
+	private Boolean isDeleted;
+	
+	@Column(name = "CREATED_BY")
 	private String createdBy;
 	
-//	@Column(name = "CREATED_DT", updatable = false)
-//	@CreationTimestamp
+	@Column(name = "CREATED_DT", updatable = false)
+	@CreationTimestamp
 	private LocalDate createdDate; 
 	
-//	@Column(name = "UPDATED_BY")
+	@Column(name = "UPDATED_BY")
 	private String updatedBy;
 	
 	
-//	@Column(name = "UPDATED_DT", insertable = false)
-//	@UpdateTimestamp
+	@Column(name = "UPDATED_DT", insertable = false)
+	@UpdateTimestamp
 	private LocalDate updatedDate;
 
-	
+	@ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 	
-	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
 	private User user;
 	
 	
@@ -39,22 +74,19 @@ public class Student {
 	public Student() {
 	}
 
-	public Student(String firstName, String lastName, String level, Boolean isActive, String createdBy,
-			LocalDate createdDate, String updatedBy, LocalDate updatedDate, User user) {
+	public Student(String firstName, String lastName, String level, User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.level = level;
-		this.isActive = isActive;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.updatedBy = updatedBy;
-		this.updatedDate = updatedDate;
+		this.isDeleted = false;
+		this.createdBy = "System";
+		this.updatedBy = "System";
 		this.user = user;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(createdBy, createdDate, firstName, isActive, lastName, level, studentId, updatedBy,
+		return Objects.hash(createdBy, createdDate, firstName, isDeleted, lastName, level, studentId, updatedBy,
 				updatedDate);
 	}
 
@@ -69,7 +101,7 @@ public class Student {
 			return false;
 		Student other = (Student) obj;
 		return Objects.equals(createdBy, other.createdBy) && Objects.equals(createdDate, other.createdDate)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(isActive, other.isActive)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(isDeleted, other.isDeleted)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(level, other.level)
 				&& Objects.equals(studentId, other.studentId) && Objects.equals(updatedBy, other.updatedBy)
 				&& Objects.equals(updatedDate, other.updatedDate);
@@ -116,13 +148,13 @@ public class Student {
 	}
 
 
-	public Boolean getIsActive() {
-		return isActive;
+	public Boolean getIsDeleted() {
+		return isDeleted;
 	}
 
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 
@@ -188,7 +220,7 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Students [studentId=" + studentId + ", firstName=" + firstName + ", lastName=" + lastName + ", level="
-				+ level + ", isActive=" + isActive + ", createdBy=" + createdBy + ", createdDate=" + createdDate
+				+ level + ", createdBy=" + createdBy + ", createdDate=" + createdDate
 				+ ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
 	}
 	
