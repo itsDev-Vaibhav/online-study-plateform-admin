@@ -56,6 +56,7 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public Student updateStudent(Student student) {
+		student.setIsDeleted(false);
 		return studentRepo.save(student);
 	}
 

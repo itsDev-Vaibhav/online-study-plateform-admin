@@ -84,6 +84,4 @@ public class InstructorController {
 		return "redirect:/instructors/index";
 	}
 	
-
-
 }
