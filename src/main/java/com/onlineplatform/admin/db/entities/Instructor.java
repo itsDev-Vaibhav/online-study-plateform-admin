@@ -1,6 +1,7 @@
 package com.onlineplatform.admin.db.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -54,7 +55,7 @@ public class Instructor {
 	
 	@Column(name = "CREATED_DT", updatable = false)
 	@CreationTimestamp
-	private LocalDate createdDate; 
+	private LocalDateTime createdDate; 
 	
 	@Column(name = "UPDATED_BY")
 	private String updatedBy;
@@ -62,7 +63,7 @@ public class Instructor {
 	
 	@Column(name = "UPDATED_DT", insertable = false)
 	@UpdateTimestamp
-	private LocalDate updatedDate;
+	private LocalDateTime updatedDate;
 	
 	@OneToMany(mappedBy =  "instructor", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
@@ -153,12 +154,12 @@ public class Instructor {
 	}
 
 
-	public LocalDate getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
 
-	public void setCreatedDate(LocalDate createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -173,12 +174,12 @@ public class Instructor {
 	}
 
 
-	public LocalDate getUpdatedDate() {
+	public LocalDateTime getUpdatedDate() {
 		return updatedDate;
 	}
 
 
-	public void setUpdatedDate(LocalDate updatedDate) {
+	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

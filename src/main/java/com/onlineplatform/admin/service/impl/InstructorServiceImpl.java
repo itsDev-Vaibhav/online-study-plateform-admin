@@ -41,7 +41,7 @@ public class InstructorServiceImpl implements InstructorService{
 
 	@Override
 	public List<Instructor> findInstructorsByName(String name) {
-		return instructorRepo.findByName(name);
+		return instructorRepo.findInstructorsByName(name);
 	}
 
 	@Override
@@ -59,6 +59,7 @@ public class InstructorServiceImpl implements InstructorService{
 
 	@Override
 	public Instructor updateInstructor(Instructor instructor) {
+		instructor.setIsDeleted(false);
 		return instructorRepo.save(instructor);
 	}
 

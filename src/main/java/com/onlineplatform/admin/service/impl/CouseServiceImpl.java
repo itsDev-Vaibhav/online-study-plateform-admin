@@ -46,6 +46,7 @@ public class CouseServiceImpl implements CourseService{
 
 	@Override
 	public Course createOrUpdateCourse(Course course) {
+		course.setIsDeleted(false);
 		return courseRepo.save(course);
 	}
 
